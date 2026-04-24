@@ -1,8 +1,8 @@
 import 'package:arvyax_flutter_assignment/features/ambience/presentation/details_screen.dart';
 import 'package:arvyax_flutter_assignment/features/ambience/presentation/providers/ambience_providers.dart';
-import 'package:arvyax_flutter_assignment/features/player/presentation/providers/player_provider.dart';
 import 'package:arvyax_flutter_assignment/features/ambience/presentation/widgets/tag_filter_chips.dart';
 import 'package:arvyax_flutter_assignment/features/journal/presentation/history_screen.dart';
+import 'package:arvyax_flutter_assignment/features/player/presentation/providers/player_provider.dart';
 import 'package:arvyax_flutter_assignment/shared/widgets/mini_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -71,7 +71,7 @@ class HomeScreen extends ConsumerWidget {
                     children: [
                       _SearchBar(),
                       const SizedBox(height: 16),
-                      TagFilterChips(),
+                      const TagFilterChips(),
                       const SizedBox(height: 20),
                     ],
                   ),
@@ -137,6 +137,115 @@ class HomeScreen extends ConsumerWidget {
       ),
     );
   }
+
+  void _showQueueSheet(BuildContext context, WidgetRef ref) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      builder: (context) {
+        return DraggableScrollableSheet(
+          initialChildSize: 0.6,
+          maxChildSize: 0.9,
+          minChildSize: 0.4,
+          builder: (context, scrollController) {
+            return Container(
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surface,
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
+              ),
+              child: Column(
+                children: [
+                  const SizedBox(height: 12),
+                  Container(
+                    width: 40,
+                    height: 4,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[400],
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.all(24.0),
+                    child: Text(
+                      'Upcoming Session Queue',
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Expanded(
+                    child: Consumer(
+                      builder: (context, ref, child) {
+                        final queue = ref.watch(playerProvider).queue;
+                        if (queue.isEmpty) {
+                          return Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.queue_music_rounded, size: 64, color: Colors.grey[400]),
+                                const SizedBox(height: 16),
+                                const Text('Your queue is empty'),
+                                const SizedBox(height: 8),
+                                const Text('Add some ambiences to start a session'),
+                              ],
+                            ),
+                          );
+                        }
+                        return ReorderableListView.builder(
+                          scrollController: scrollController,
+                          itemCount: queue.length,
+                          onReorder: (oldIndex, newIndex) {
+                            ref.read(playerProvider.notifier).reorderQueue(oldIndex, newIndex);
+                          },
+                          itemBuilder: (context, index) {
+                            final item = queue[index];
+                            return ListTile(
+                              key: ValueKey('queue_${item.id}_$index'),
+                              leading: ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Image.asset(item.thumbnailUrl, width: 40, height: 40, fit: BoxFit.cover),
+                              ),
+                              title: Text(item.title, style: const TextStyle(fontWeight: FontWeight.bold)),
+                              subtitle: Text(item.tag),
+                              trailing: IconButton(
+                                icon: const Icon(Icons.remove_circle_outline, color: Colors.red),
+                                onPressed: () => ref.read(playerProvider.notifier).removeFromQueue(index),
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                  if (ref.watch(playerProvider).queue.isNotEmpty)
+                    Padding(
+                      padding: const EdgeInsets.all(24.0),
+                      child: SizedBox(
+                        width: double.infinity,
+                        height: 56,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            final first = ref.read(playerProvider).queue.first;
+                            ref.read(playerProvider.notifier).removeFromQueue(0);
+                            ref.read(playerProvider.notifier).startSession(first);
+                            Navigator.pop(context);
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Theme.of(context).colorScheme.primary,
+                            foregroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                          ),
+                          child: const Text('Start Session Queue', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
 }
 
 class _SearchBar extends ConsumerWidget {
@@ -174,7 +283,7 @@ class _AmbienceCard extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(28),
-          color: Theme.of(context).colorScheme.surface,
+          color: Theme.of(context).colorScheme.surfaceVariant,
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.08),
