@@ -59,7 +59,7 @@ class _PlayerScreenState extends ConsumerState<PlayerScreen> with SingleTickerPr
           // Immersive Mesh Gradient Background
           Stack(
             children: [
-              Container(color: Theme.of(context).colorScheme.background),
+              Container(color: Theme.of(context).colorScheme.surface),
               _AnimatedBlob(
                 color: Theme.of(context).colorScheme.primary.withOpacity(0.3),
                 top: -100,
