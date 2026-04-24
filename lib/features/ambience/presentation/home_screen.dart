@@ -109,9 +109,7 @@ class HomeScreen extends ConsumerWidget {
                     ),
                   );
                 },
-                loading: () => const SliverToBoxAdapter(
-                  child: Center(child: CircularProgressIndicator()),
-                ),
+                loading: () => const _LoadingGrid(),
                 error: (e, _) => SliverToBoxAdapter(
                   child: Center(child: Text('Error: $e')),
                 ),
