@@ -17,7 +17,7 @@ class MiniPlayer extends ConsumerWidget {
     }
 
     return Dismissible(
-      key: const Key('mini_player_dismiss'),
+      key: ValueKey('mini_player_${ambience.id}'),
       direction: DismissDirection.startToEnd,
       onDismissed: (_) => ref.read(playerProvider.notifier).stopSession(),
       background: Container(

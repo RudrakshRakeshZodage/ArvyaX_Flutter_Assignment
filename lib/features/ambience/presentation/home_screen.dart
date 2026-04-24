@@ -33,7 +33,7 @@ class HomeScreen extends ConsumerWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Image.asset('assets/images/logo.png', height: 40),
+                            Image.asset('assets/images/logo.png', height: 48),
                             Row(
                               children: [
                                 IconButton(
@@ -53,10 +53,19 @@ class HomeScreen extends ConsumerWidget {
                         ),
                         const SizedBox(height: 12),
                         Text(
-                          'Breathe, ArvyaX.',
-                          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                          'Breathe.',
+                          style: Theme.of(context).textTheme.headlineLarge?.copyWith(
                                 fontWeight: FontWeight.w900,
-                                letterSpacing: -1,
+                                letterSpacing: -1.5,
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                        ),
+                        Text(
+                          'Your ArvyaX Session.',
+                          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: -0.5,
+                                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
                               ),
                         ),
                       ],

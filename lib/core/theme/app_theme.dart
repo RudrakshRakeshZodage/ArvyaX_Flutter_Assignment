@@ -15,10 +15,10 @@ class AppTheme {
       secondary: accentColor,
       surfaceVariant: Colors.white,
     ),
-    scaffoldBackgroundColor: const Color(0xFFF2F2F7),
+    scaffoldBackgroundColor: Colors.white,
     textTheme: GoogleFonts.outfitTextTheme(),
     appBarTheme: AppBarTheme(
-      backgroundColor: const Color(0xFFF2F2F7).withOpacity(0.8),
+      backgroundColor: Colors.white.withOpacity(0.8),
       elevation: 0,
       centerTitle: true,
       titleTextStyle: const TextStyle(
