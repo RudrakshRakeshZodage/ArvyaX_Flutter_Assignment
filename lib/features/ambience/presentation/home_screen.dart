@@ -34,12 +34,20 @@ class HomeScreen extends ConsumerWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Image.asset('assets/images/logo.png', height: 40),
-                            IconButton(
-                              icon: const Icon(Icons.history_rounded, size: 28),
-                              onPressed: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (_) => const HistoryScreen()),
-                              ),
+                            Row(
+                              children: [
+                                IconButton(
+                                  icon: const Icon(Icons.queue_music_rounded, size: 28),
+                                  onPressed: () => _showQueueSheet(context, ref),
+                                ),
+                                IconButton(
+                                  icon: const Icon(Icons.history_rounded, size: 28),
+                                  onPressed: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (_) => const HistoryScreen()),
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
