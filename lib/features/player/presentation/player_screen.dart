@@ -95,7 +95,7 @@ class _PlayerScreenState extends ConsumerState<PlayerScreen> with SingleTickerPr
                       ],
                     ),
                     clipBehavior: Clip.antiAlias,
-                    child: Image.network(ambience.thumbnailUrl, fit: BoxFit.cover),
+                    child: Image.asset(ambience.thumbnailUrl, fit: BoxFit.cover),
                   ),
                   const SizedBox(height: 48),
                   Text(

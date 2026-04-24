@@ -41,7 +41,7 @@ class MiniPlayer extends ConsumerWidget {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
-                  child: Image.network(
+                  child: Image.asset(
                     ambience.thumbnailUrl,
                     width: 40,
                     height: 40,

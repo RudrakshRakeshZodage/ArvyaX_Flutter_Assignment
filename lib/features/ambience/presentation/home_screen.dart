@@ -168,7 +168,7 @@ class _AmbienceCard extends StatelessWidget {
             Expanded(
               child: Hero(
                 tag: 'image_${ambience.id}',
-                child: Image.network(
+                child: Image.asset(
                   ambience.thumbnailUrl,
                   fit: BoxFit.cover,
                   width: double.infinity,

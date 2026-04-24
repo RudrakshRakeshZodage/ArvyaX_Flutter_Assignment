@@ -5,8 +5,8 @@
     "tag": "Focus",
     "durationMinutes": 2,
     "description": "Immerse yourself in the gentle rustle of leaves and distant bird calls. Perfect for deep concentration.",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=500",
-    "audioFileName": "forest.mp3",
+    "thumbnailUrl": "assets/images/forest_focus.png",
+    "audioFileName": "assets/audio/forest.wav",
     "sensoryChips": ["Breeze", "Warm Light", "Mist", "Binaural"]
   },
   {
@@ -15,8 +15,8 @@
     "tag": "Calm",
     "durationMinutes": 3,
     "description": "Slow, rhythmic waves washing over the shore. A soothing experience to quiet the mind.",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1505118380757-91f5f45d8de4?q=80&w=500",
-    "audioFileName": "ocean.mp3",
+    "thumbnailUrl": "assets/images/ocean_calm.png",
+    "audioFileName": "assets/audio/ocean.wav",
     "sensoryChips": ["Salt Air", "Cool Blue", "Rhythmic", "White Noise"]
   },
   {
@@ -25,8 +25,8 @@
     "tag": "Sleep",
     "durationMinutes": 3,
     "description": "A dark, velvet night with the softest hum of a distant storm. Designed for deep rest.",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?q=80&w=500",
-    "audioFileName": "sleep.mp3",
+    "thumbnailUrl": "assets/images/midnight_sleep.png",
+    "audioFileName": "assets/audio/sleep.wav",
     "sensoryChips": ["Darkness", "Soft Rain", "Static", "Comfort"]
   },
   {
@@ -35,8 +35,8 @@
     "tag": "Reset",
     "durationMinutes": 2,
     "description": "Crisp morning air and the first light of dawn. Re-energize your system.",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?q=80&w=500",
-    "audioFileName": "reset.mp3",
+    "thumbnailUrl": "assets/images/morning_reset.png",
+    "audioFileName": "assets/audio/reset.wav",
     "sensoryChips": ["Golden Light", "Dew", "Freshness", "Clarity"]
   },
   {
@@ -45,8 +45,8 @@
     "tag": "Calm",
     "durationMinutes": 2,
     "description": "The sound of sand being raked and water trickling. A minimalist approach to peace.",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1558449028-b53a39d100fc?q=80&w=500",
-    "audioFileName": "zen.mp3",
+    "thumbnailUrl": "assets/images/zen_garden.png",
+    "audioFileName": "assets/audio/zen.wav",
     "sensoryChips": ["Sand", "Water", "Stone", "Silence"]
   },
   {
@@ -55,8 +55,8 @@
     "tag": "Focus",
     "durationMinutes": 3,
     "description": "Ethereal synth pads and low-frequency oscillations. Explore the depths of your thoughts.",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?q=80&w=500",
-    "audioFileName": "cosmic.mp3",
+    "thumbnailUrl": "assets/images/cosmic_drift.png",
+    "audioFileName": "assets/audio/cosmic.wav",
     "sensoryChips": ["Deep Space", "Pulse", "Float", "Infinity"]
   }
 ]

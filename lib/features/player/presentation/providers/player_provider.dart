@@ -51,14 +51,7 @@ class PlayerNotifier extends StateNotifier<PlayerState> {
     );
 
     try {
-      // For demo, we might not have real assets, but I'll try to load from assets
-      // In a real app, we'd use rootBundle or just load from assets
-      // await _audioPlayer.setAsset('assets/audio/${ambience.audioFileName}');
-      
-      // Since I don't have real mp3s, I'll use a placeholder URL for demo if asset fails
-      // or just simulate the timer if I can't find the asset.
-      // But I'll try asset first.
-      await _audioPlayer.setAsset('assets/audio/placeholder.mp3'); 
+      await _audioPlayer.setAsset(ambience.audioFileName); 
       await _audioPlayer.setLoopMode(LoopMode.one);
       await _audioPlayer.play();
 

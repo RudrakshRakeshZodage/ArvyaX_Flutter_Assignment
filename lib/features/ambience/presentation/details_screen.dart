@@ -22,7 +22,7 @@ class DetailsScreen extends ConsumerWidget {
                 flexibleSpace: FlexibleSpaceBar(
                   background: Hero(
                     tag: 'image_${ambience.id}',
-                    child: Image.network(
+                    child: Image.asset(
                       ambience.thumbnailUrl,
                       fit: BoxFit.cover,
                     ),
