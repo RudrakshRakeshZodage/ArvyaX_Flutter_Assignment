@@ -19,26 +19,40 @@ class HomeScreen extends ConsumerWidget {
           CustomScrollView(
             slivers: [
               SliverAppBar(
-                expandedHeight: 120,
+                expandedHeight: 160,
                 floating: true,
                 pinned: true,
-                flexibleSpace: const FlexibleSpaceBar(
-                  title: Text(
-                    'Explore Ambiences',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  centerTitle: false,
-                  titlePadding: EdgeInsets.only(left: 20, bottom: 16),
-                ),
-                actions: [
-                  IconButton(
-                    icon: const Icon(Icons.history),
-                    onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (_) => const HistoryScreen()),
+                flexibleSpace: FlexibleSpaceBar(
+                  background: Padding(
+                    padding: const EdgeInsets.only(top: 60, left: 20, right: 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Image.asset('assets/images/logo.png', height: 40),
+                            IconButton(
+                              icon: const Icon(Icons.history_rounded, size: 28),
+                              onPressed: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (_) => const HistoryScreen()),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 12),
+                        Text(
+                          'Breathe, ArvyaX.',
+                          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                                fontWeight: FontWeight.w900,
+                                letterSpacing: -1,
+                              ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
+                ),
               ),
               SliverToBoxAdapter(
                 child: Padding(
