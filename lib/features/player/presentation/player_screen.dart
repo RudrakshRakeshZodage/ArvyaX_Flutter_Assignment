@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:arvyax_flutter_assignment/features/journal/presentation/journal_screen.dart';
 import 'package:arvyax_flutter_assignment/features/player/presentation/providers/player_provider.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
@@ -55,22 +56,42 @@ class _PlayerScreenState extends ConsumerState<PlayerScreen> with SingleTickerPr
     return Scaffold(
       body: Stack(
         children: [
-          // Background Animation
-          AnimatedBuilder(
-            animation: _pulseAnimation,
-            builder: (context, child) {
-              return Container(
+          // Immersive Mesh Gradient Background
+          Stack(
+            children: [
+              Container(color: Theme.of(context).colorScheme.background),
+              _AnimatedBlob(
+                color: Theme.of(context).colorScheme.primary.withOpacity(0.3),
+                top: -100,
+                left: -100,
+                size: 400,
+                duration: const Duration(seconds: 8),
+              ),
+              _AnimatedBlob(
+                color: Theme.of(context).colorScheme.secondary.withOpacity(0.3),
+                bottom: -150,
+                right: -150,
+                size: 500,
+                duration: const Duration(seconds: 12),
+              ),
+              _AnimatedBlob(
+                color: Colors.tealAccent.withOpacity(0.1),
+                top: 200,
+                right: -50,
+                size: 300,
+                duration: const Duration(seconds: 10),
+              ),
+              // Glass overlay
+              Container(
                 decoration: BoxDecoration(
-                  gradient: RadialGradient(
-                    colors: [
-                      Theme.of(context).colorScheme.primary.withOpacity(0.2),
-                      Theme.of(context).colorScheme.background,
-                    ],
-                    radius: _pulseAnimation.value,
-                  ),
+                  color: Colors.white.withOpacity(0.1),
                 ),
-              );
-            },
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 80, sigmaY: 80),
+                  child: Container(),
+                ),
+              ),
+            ],
           ),
           
           SafeArea(
