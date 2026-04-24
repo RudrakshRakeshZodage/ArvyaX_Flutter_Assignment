@@ -2,33 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
-  static const Color primaryColor = Color(0xFF007AFF); // Apple Blue
-  static const Color backgroundColor = Color(0xFFFBFBFD); // Apple Off-white
-  static const Color cardColor = Colors.white;
-  static const Color accentColor = Color(0xFF5856D6); // Apple Purple
+  static const Color primaryColor = Color(0xFF007AFF); 
+  static const Color accentColor = Color(0xFF5856D6); 
 
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     brightness: Brightness.light,
     colorScheme: ColorScheme.fromSeed(
       seedColor: primaryColor,
-      surface: backgroundColor,
+      surface: const Color(0xFFFBFBFD),
       secondary: accentColor,
     ),
+    scaffoldBackgroundColor: const Color(0xFFFBFBFD),
     textTheme: GoogleFonts.outfitTextTheme(),
-    appBarTheme: const AppBarTheme(
-      backgroundColor: Colors.transparent,
+    appBarTheme: AppBarTheme(
+      backgroundColor: const Color(0xFFFBFBFD).withOpacity(0.8),
       elevation: 0,
       centerTitle: true,
-      titleTextStyle: TextStyle(
+      titleTextStyle: const TextStyle(
         color: Colors.black,
         fontSize: 20,
         fontWeight: FontWeight.bold,
       ),
     ),
-    cardTheme: const CardThemeData(
+    cardTheme: CardTheme(
       elevation: 0,
-      color: cardColor,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+      color: Colors.white,
     ),
   );
 
@@ -39,12 +39,19 @@ class AppTheme {
       seedColor: primaryColor,
       brightness: Brightness.dark,
       surface: const Color(0xFF1C1C1E),
+      secondary: accentColor,
     ),
+    scaffoldBackgroundColor: const Color(0xFF000000),
     textTheme: GoogleFonts.outfitTextTheme(ThemeData.dark().textTheme),
-    appBarTheme: const AppBarTheme(
-      backgroundColor: Colors.transparent,
+    appBarTheme: AppBarTheme(
+      backgroundColor: Colors.black.withOpacity(0.8),
       elevation: 0,
       centerTitle: true,
+    ),
+    cardTheme: CardTheme(
+      elevation: 0,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+      color: const Color(0xFF1C1C1E),
     ),
   );
 }
