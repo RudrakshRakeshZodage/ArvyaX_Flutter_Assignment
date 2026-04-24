@@ -190,8 +190,8 @@ class _PlayerScreenState extends ConsumerState<PlayerScreen> with SingleTickerPr
             top: 40,
             left: 20,
             child: IconButton(
-              icon: const Icon(Icons.keyboard_arrow_down, size: 40),
-              onPressed: () => Navigator.pop(context),
+              icon: const Icon(Icons.close_rounded, size: 32),
+              onPressed: () => _showEndDialog(context, ref),
             ),
           ),
         ],
