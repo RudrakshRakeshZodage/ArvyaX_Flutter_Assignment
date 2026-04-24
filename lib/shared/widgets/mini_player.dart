@@ -99,6 +99,17 @@ class MiniPlayer extends ConsumerWidget {
                     ),
                     Container(
                       decoration: BoxDecoration(
+                        color: Colors.red.withOpacity(0.1),
+                        shape: BoxShape.circle,
+                      ),
+                      child: IconButton(
+                        icon: const Icon(Icons.stop_rounded, color: Colors.red),
+                        onPressed: () => ref.read(playerProvider.notifier).stopSession(),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Container(
+                      decoration: BoxDecoration(
                         color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
                         shape: BoxShape.circle,
                       ),
