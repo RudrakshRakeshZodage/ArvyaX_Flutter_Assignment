@@ -55,6 +55,8 @@ class PlayerNotifier extends StateNotifier<PlayerState> {
       await _audioPlayer.setAsset(ambience.audioFileName); 
       await _audioPlayer.setLoopMode(LoopMode.one);
       await _audioPlayer.play();
+      _setupSubscriptions();
+      _startSessionTimer(ambience.durationMinutes);
       print('Audio playback started successfully.');
     } catch (e, stack) {
       print('FAILED to play audio asset: $e');
