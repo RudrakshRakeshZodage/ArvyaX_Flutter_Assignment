@@ -38,7 +38,6 @@ class AppTheme {
     colorScheme: ColorScheme.fromSeed(
       seedColor: primaryColor,
       brightness: Brightness.dark,
-      background: const Color(0xFF000000),
       surface: const Color(0xFF1C1C1E),
     ),
     textTheme: GoogleFonts.outfitTextTheme(ThemeData.dark().textTheme),
