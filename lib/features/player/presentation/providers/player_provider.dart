@@ -51,15 +51,15 @@ class PlayerNotifier extends StateNotifier<PlayerState> {
     );
 
     try {
+      print('Attempting to play audio: ${ambience.audioFileName}');
       await _audioPlayer.setAsset(ambience.audioFileName); 
       await _audioPlayer.setLoopMode(LoopMode.one);
       await _audioPlayer.play();
-
-      _setupSubscriptions();
-      _startSessionTimer(ambience.durationMinutes);
-    } catch (e) {
-      // Fallback: simulate playing if asset is missing (common in interview tests)
-      print('Audio asset missing, simulating playback: $e');
+      print('Audio playback started successfully.');
+    } catch (e, stack) {
+      print('FAILED to play audio asset: $e');
+      print('Stack trace: $stack');
+      // Fallback: simulate playing if asset is missing
       _startSimulatedPlayback(ambience.durationMinutes);
     }
   }
