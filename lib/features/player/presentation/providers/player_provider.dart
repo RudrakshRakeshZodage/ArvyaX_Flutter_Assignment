@@ -5,6 +5,7 @@ import 'package:just_audio/just_audio.dart';
 
 class PlayerState {
   final Ambience? activeAmbience;
+  final List<Ambience> queue;
   final bool isPlaying;
   final Duration position;
   final Duration duration;
@@ -12,6 +13,7 @@ class PlayerState {
 
   PlayerState({
     this.activeAmbience,
+    this.queue = const [],
     this.isPlaying = false,
     this.position = Duration.zero,
     this.duration = Duration.zero,
@@ -20,6 +22,7 @@ class PlayerState {
 
   PlayerState copyWith({
     Ambience? activeAmbience,
+    List<Ambience>? queue,
     bool? isPlaying,
     Duration? position,
     Duration? duration,
@@ -27,6 +30,7 @@ class PlayerState {
   }) {
     return PlayerState(
       activeAmbience: activeAmbience ?? this.activeAmbience,
+      queue: queue ?? this.queue,
       isPlaying: isPlaying ?? this.isPlaying,
       position: position ?? this.position,
       duration: duration ?? this.duration,
@@ -123,7 +127,44 @@ class PlayerNotifier extends StateNotifier<PlayerState> {
     _sessionTimer?.cancel();
     _positionSubscription?.cancel();
     _playerStateSubscription?.cancel();
-    state = state.copyWith(isPlaying: false, isSessionComplete: complete);
+    
+    if (complete && state.queue.isNotEmpty) {
+      playNext();
+    } else {
+      state = state.copyWith(isPlaying: false, isSessionComplete: complete);
+    }
+  }
+
+  void addToQueue(Ambience ambience) {
+    state = state.copyWith(queue: [...state.queue, ambience]);
+  }
+
+  void removeFromQueue(int index) {
+    final newQueue = List<Ambience>.from(state.queue);
+    newQueue.removeAt(index);
+    state = state.copyWith(queue: newQueue);
+  }
+
+  void reorderQueue(int oldIndex, int newIndex) {
+    if (oldIndex < newIndex) {
+      newIndex -= 1;
+    }
+    final newQueue = List<Ambience>.from(state.queue);
+    final item = newQueue.removeAt(oldIndex);
+    newQueue.insert(newIndex, item);
+    state = state.copyWith(queue: newQueue);
+  }
+
+  void playNext() {
+    if (state.queue.isNotEmpty) {
+      final next = state.queue.first;
+      final newQueue = List<Ambience>.from(state.queue);
+      newQueue.removeAt(0);
+      state = state.copyWith(queue: newQueue);
+      startSession(next);
+    } else {
+      _endSession(complete: true);
+    }
   }
 
   @override
