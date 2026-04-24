@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:arvyax_flutter_assignment/features/player/presentation/player_screen.dart';
 import 'package:arvyax_flutter_assignment/features/player/presentation/providers/player_provider.dart';
 import 'package:flutter/material.dart';
