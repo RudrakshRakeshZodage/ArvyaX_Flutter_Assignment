@@ -1,6 +1,7 @@
 import 'package:arvyax_flutter_assignment/features/ambience/presentation/details_screen.dart';
 import 'package:arvyax_flutter_assignment/features/ambience/presentation/providers/ambience_providers.dart';
-import 'package:arvyax_flutter_assignment/features/ambience/presentation/widgets/tag_filter_chips.dart';
+import 'package:arvyax_flutter_assignment/features/player/presentation/providers/player_provider.dart';
+import 'package:arvyax_flutter_assignment/features/player/presentation/widgets/tag_filter_chips.dart';
 import 'package:arvyax_flutter_assignment/features/journal/presentation/history_screen.dart';
 import 'package:arvyax_flutter_assignment/shared/widgets/mini_player.dart';
 import 'package:flutter/material.dart';
