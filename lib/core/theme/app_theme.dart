@@ -12,8 +12,7 @@ class AppTheme {
     brightness: Brightness.light,
     colorScheme: ColorScheme.fromSeed(
       seedColor: primaryColor,
-      background: backgroundColor,
-      surface: cardColor,
+      surface: backgroundColor,
       secondary: accentColor,
     ),
     textTheme: GoogleFonts.outfitTextTheme(),
@@ -27,9 +26,8 @@ class AppTheme {
         fontWeight: FontWeight.bold,
       ),
     ),
-    cardTheme: CardThemeData(
+    cardTheme: const CardTheme(
       elevation: 0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       color: cardColor,
     ),
   );
