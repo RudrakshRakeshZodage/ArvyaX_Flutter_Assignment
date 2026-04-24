@@ -10,24 +10,28 @@ class AppTheme {
     brightness: Brightness.light,
     colorScheme: ColorScheme.fromSeed(
       seedColor: primaryColor,
-      surface: const Color(0xFFFBFBFD),
+      surface: const Color(0xFFF2F2F7), // Apple System Gray 6
+      onSurface: Colors.black,
       secondary: accentColor,
+      surfaceVariant: Colors.white,
     ),
-    scaffoldBackgroundColor: const Color(0xFFFBFBFD),
+    scaffoldBackgroundColor: const Color(0xFFF2F2F7),
     textTheme: GoogleFonts.outfitTextTheme(),
     appBarTheme: AppBarTheme(
-      backgroundColor: const Color(0xFFFBFBFD).withOpacity(0.8),
+      backgroundColor: const Color(0xFFF2F2F7).withOpacity(0.8),
       elevation: 0,
       centerTitle: true,
       titleTextStyle: const TextStyle(
         color: Colors.black,
-        fontSize: 20,
-        fontWeight: FontWeight.bold,
+        fontSize: 22,
+        fontWeight: FontWeight.w900,
+        letterSpacing: -0.5,
       ),
+      iconTheme: const IconThemeData(color: Colors.black),
     ),
     cardTheme: CardThemeData(
       elevation: 0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
       color: Colors.white,
     ),
   );
@@ -38,8 +42,10 @@ class AppTheme {
     colorScheme: ColorScheme.fromSeed(
       seedColor: primaryColor,
       brightness: Brightness.dark,
-      surface: const Color(0xFF1C1C1E),
+      surface: const Color(0xFF1C1C1E), // Apple Dark Gray
+      onSurface: Colors.white,
       secondary: accentColor,
+      surfaceVariant: const Color(0xFF2C2C2E),
     ),
     scaffoldBackgroundColor: const Color(0xFF000000),
     textTheme: GoogleFonts.outfitTextTheme(ThemeData.dark().textTheme),
@@ -47,10 +53,17 @@ class AppTheme {
       backgroundColor: Colors.black.withOpacity(0.8),
       elevation: 0,
       centerTitle: true,
+      titleTextStyle: const TextStyle(
+        color: Colors.white,
+        fontSize: 22,
+        fontWeight: FontWeight.w900,
+        letterSpacing: -0.5,
+      ),
+      iconTheme: const IconThemeData(color: Colors.white),
     ),
     cardTheme: CardThemeData(
       elevation: 0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
       color: const Color(0xFF1C1C1E),
     ),
   );
