@@ -47,7 +47,7 @@ class AppTheme {
       secondary: accentColor,
       surfaceVariant: const Color(0xFF2C2C2E),
     ),
-    scaffoldBackgroundColor: const Color(0xFF000000),
+    scaffoldBackgroundColor: const Color(0xFF121212), // Deep charcoal instead of black
     textTheme: GoogleFonts.outfitTextTheme(ThemeData.dark().textTheme),
     appBarTheme: AppBarTheme(
       backgroundColor: Colors.black.withOpacity(0.8),
