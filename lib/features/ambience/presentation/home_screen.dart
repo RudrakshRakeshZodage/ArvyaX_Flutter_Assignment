@@ -245,38 +245,37 @@ class _AmbienceCard extends StatelessWidget {
   }
 }
 
- c l a s s   _ L o a d i n g G r i d   e x t e n d s   S t a t e l e s s W i d g e t   { 
-     c o n s t   _ L o a d i n g G r i d ( ) ; 
- 
-     @ o v e r r i d e 
-     W i d g e t   b u i l d ( B u i l d C o n t e x t   c o n t e x t )   { 
-         r e t u r n   S l i v e r P a d d i n g ( 
-             p a d d i n g :   c o n s t   E d g e I n s e t s . s y m m e t r i c ( h o r i z o n t a l :   2 0 ) , 
-             s l i v e r :   S l i v e r G r i d ( 
-                 g r i d D e l e g a t e :   c o n s t   S l i v e r G r i d D e l e g a t e W i t h F i x e d C r o s s A x i s C o u n t ( 
-                     c r o s s A x i s C o u n t :   2 , 
-                     c h i l d A s p e c t R a t i o :   0 . 8 , 
-                     c r o s s A x i s S p a c i n g :   1 6 , 
-                     m a i n A x i s S p a c i n g :   1 6 , 
-                 ) , 
-                 d e l e g a t e :   S l i v e r C h i l d B u i l d e r D e l e g a t e ( 
-                     ( c o n t e x t ,   i n d e x )   { 
-                         r e t u r n   S h i m m e r . f r o m C o l o r s ( 
-                             b a s e C o l o r :   C o l o r s . g r e y [ 3 0 0 ] ! , 
-                             h i g h l i g h t C o l o r :   C o l o r s . g r e y [ 1 0 0 ] ! , 
-                             c h i l d :   C o n t a i n e r ( 
-                                 d e c o r a t i o n :   B o x D e c o r a t i o n ( 
-                                     c o l o r :   C o l o r s . w h i t e , 
-                                     b o r d e r R a d i u s :   B o r d e r R a d i u s . c i r c u l a r ( 2 8 ) , 
-                                 ) , 
-                             ) , 
-                         ) ; 
-                     } , 
-                     c h i l d C o u n t :   6 , 
-                 ) , 
-             ) , 
-         ) ; 
-     } 
- } 
-  
- 
+class _LoadingGrid extends StatelessWidget {
+  const _LoadingGrid();
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return SliverPadding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      sliver: SliverGrid(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: 0.8,
+          crossAxisSpacing: 16,
+          mainAxisSpacing: 16,
+        ),
+        delegate: SliverChildBuilderDelegate(
+          (context, index) {
+            return Shimmer.fromColors(
+              baseColor: isDark ? Colors.grey[800]! : Colors.grey[300]!,
+              highlightColor: isDark ? Colors.grey[700]! : Colors.grey[100]!,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(28),
+                ),
+              ),
+            );
+          },
+          childCount: 6,
+        ),
+      ),
+    );
+  }
+}
