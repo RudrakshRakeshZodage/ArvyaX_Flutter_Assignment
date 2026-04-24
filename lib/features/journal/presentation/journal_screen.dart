@@ -31,85 +31,137 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         title: const Text('Reflection'),
         automaticallyImplyLeading: false,
+        actions: [
+          IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: const Icon(Icons.close_rounded),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24),
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'What is gently present with you right now?',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 24),
-            TextField(
-              controller: _textController,
-              maxLines: 6,
-              decoration: InputDecoration(
-                hintText: 'Share your thoughts...',
-                filled: true,
-                fillColor: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.3),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  borderSide: BorderSide.none,
-                ),
+            Container(
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primary.withOpacity(0.05),
+                borderRadius: BorderRadius.circular(24),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'What is gently present with you right now?',
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                          fontWeight: FontWeight.w900,
+                          letterSpacing: -0.5,
+                        ),
+                  ),
+                  const SizedBox(height: 16),
+                  TextField(
+                    controller: _textController,
+                    maxLines: 5,
+                    style: const TextStyle(fontSize: 16, height: 1.5),
+                    decoration: InputDecoration(
+                      hintText: 'Share your thoughts...',
+                      hintStyle: TextStyle(color: Theme.of(context).colorScheme.outline),
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
+                        borderSide: BorderSide.none,
+                      ),
+                      contentPadding: const EdgeInsets.all(16),
+                    ),
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: 32),
-            const Text(
+            Text(
               'Your Current Mood',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w800,
+                  ),
             ),
             const SizedBox(height: 16),
-            Wrap(
-              spacing: 12,
-              runSpacing: 12,
-              children: _moods.map((mood) {
+            GridView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 12,
+                crossAxisSpacing: 12,
+                childAspectRatio: 2.2,
+              ),
+              itemCount: _moods.length,
+              itemBuilder: (context, index) {
+                final mood = _moods[index];
                 final isSelected = _selectedMood == mood['label'];
                 return GestureDetector(
                   onTap: () {
                     HapticFeedback.lightImpact();
                     setState(() => _selectedMood = mood['label']);
                   },
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 200),
                     decoration: BoxDecoration(
                       color: isSelected
                           ? Theme.of(context).colorScheme.primary
-                          : Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.3),
-                      borderRadius: BorderRadius.circular(15),
+                          : Theme.of(context).colorScheme.surface,
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: isSelected
+                          ? [
+                              BoxShadow(
+                                color: Theme.of(context).colorScheme.primary.withOpacity(0.3),
+                                blurRadius: 12,
+                                offset: const Offset(0, 4),
+                              )
+                            ]
+                          : [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.03),
+                                blurRadius: 8,
+                                offset: const Offset(0, 2),
+                              )
+                            ],
                     ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          mood['icon'],
-                          size: 20,
-                          color: isSelected ? Colors.white : Colors.grey,
-                        ),
-                        const SizedBox(width: 8),
-                        Text(
-                          mood['label'],
-                          style: TextStyle(
-                            color: isSelected ? Colors.white : Colors.black87,
-                            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                    child: Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            mood['icon'],
+                            size: 20,
+                            color: isSelected ? Colors.white : Theme.of(context).colorScheme.outline,
                           ),
-                        ),
-                      ],
+                          const SizedBox(width: 10),
+                          Text(
+                            mood['label'],
+                            style: TextStyle(
+                              color: isSelected ? Colors.white : Theme.of(context).colorScheme.onSurface,
+                              fontWeight: isSelected ? FontWeight.w800 : FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 );
-              }).toList(),
+              },
             ),
             const SizedBox(height: 48),
             ElevatedButton(
               onPressed: (_selectedMood == null || _textController.text.isEmpty)
                   ? null
                   : () async {
-                      HapticFeedback.mediumImpact();
+                      HapticFeedback.heavyImpact();
                       await ref.read(journalProvider.notifier).addEntry(
                             ambienceTitle: widget.ambienceTitle,
                             mood: _selectedMood!,
@@ -118,11 +170,18 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
                       if (mounted) Navigator.pop(context);
                     },
               style: ElevatedButton.styleFrom(
-                minimumSize: const Size(double.infinity, 60),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                backgroundColor: Theme.of(context).colorScheme.primary,
+                foregroundColor: Colors.white,
+                minimumSize: const Size(double.infinity, 64),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                elevation: 0,
               ),
-              child: const Text('Save Reflection', style: TextStyle(fontSize: 18)),
+              child: const Text(
+                'Save Reflection',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
             ),
+            const SizedBox(height: 24),
           ],
         ),
       ),
