@@ -232,3 +232,68 @@ class _PlayerScreenState extends ConsumerState<PlayerScreen> with SingleTickerPr
     );
   }
 }
+
+class _AnimatedBlob extends StatefulWidget {
+  final Color color;
+  final double? top, left, bottom, right;
+  final double size;
+  final Duration duration;
+
+  const _AnimatedBlob({
+    required this.color,
+    this.top,
+    this.left,
+    this.bottom,
+    this.right,
+    required this.size,
+    required this.duration,
+  });
+
+  @override
+  State<_AnimatedBlob> createState() => _AnimatedBlobState();
+}
+
+class _AnimatedBlobState extends State<_AnimatedBlob> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(vsync: this, duration: widget.duration)..repeat(reverse: true);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, child) {
+        return Positioned(
+          top: widget.top,
+          left: widget.left,
+          bottom: widget.bottom,
+          right: widget.right,
+          child: Transform.translate(
+            offset: Offset(
+              20 * _controller.value,
+              20 * (1 - _controller.value),
+            ),
+            child: Container(
+              width: widget.size,
+              height: widget.size,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: widget.color,
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
