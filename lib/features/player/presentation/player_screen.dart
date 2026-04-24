@@ -185,6 +185,16 @@ class _PlayerScreenState extends ConsumerState<PlayerScreen> with SingleTickerPr
             ),
           ),
           
+          // Close Button
+          Positioned(
+            top: 40,
+            left: 20,
+            child: IconButton(
+              icon: const Icon(Icons.close_rounded, size: 32),
+              onPressed: () => _showEndDialog(context, ref),
+            ),
+          ),
+          
           // Queue Button
           Positioned(
             top: 40,
