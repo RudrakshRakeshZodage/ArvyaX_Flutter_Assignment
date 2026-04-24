@@ -1,62 +1,92 @@
-# ArvyaX Immersive Session + Reflection App
+# ArvyaX - Immersive Session + Reflection
 
-A premium, calm, and minimal Flutter application built for the ArvyaX developer interview assignment.
+ArvyaX is a premium, minimal Flutter application designed for deep focus, calm, and reflection. It provides an immersive audio experience paired with thoughtful journaling to help users reset and recharge.
 
-## Architecture
+## 🌟 Key Features
 
-This project follows **Clean Architecture** principles to ensure separation of concerns, testability, and maintainability.
+- **Immersive Ambience Library**: 6 curated ambiences with high-quality generative audio.
+- **Advanced Session Queue**: Drag-and-drop to reorder your sessions and build a custom flow.
+- **Reflective Journaling**: Capture your thoughts immediately after each session.
+- **Premium UI/UX**:
+  - **Dynamic Themes**: High-contrast Light and Dark modes.
+  - **Interactive Controls**: Slide-to-cancel MiniPlayer and glassmorphic design.
+  - **Smooth Animations**: Custom animated splash screen and mesh gradients.
+- **Persistent History**: Track your past reflections using local Hive storage.
 
-### Folder Structure
-- `lib/core/`: Application-wide constants, theme definitions, and utilities.
-- `lib/data/`: Data layer containing models (JSON serialization, Hive adapters) and repository implementations.
-- `lib/domain/`: Domain layer containing business entities and repository interfaces.
-- `lib/features/`: Feature-based modules (Ambience, Player, Journal).
-  - Each feature contains its own `presentation` logic (widgets, screens, and Riverpod providers).
-- `lib/shared/`: Reusable widgets shared across multiple features (e.g., `MiniPlayer`).
+## 🛠️ Technical Architecture
 
-### State Management
-I chose **Riverpod** for state management because of its compile-time safety, ease of dependency injection, and ability to handle asynchronous data (AsyncValue) seamlessly.
-- **Data Flow**: `Repository` (Data source) -> `Provider/Notifier` (Controller) -> `ConsumerWidget` (UI).
+The project follows **Clean Architecture** principles to ensure scalability and maintainability:
 
-### Persistence
-**Hive** is used for local persistence of journal entries. It was chosen for its high performance, simplicity in Flutter, and low overhead compared to SQLite.
+```text
+lib/
+├── core/               # App-wide configurations, themes, and utilities
+├── data/               # Data sources, models, and repositories
+├── domain/             # Business logic entities and repository interfaces
+├── features/           # Feature-based modules (Ambience, Player, Journal)
+│   ├── ambience/       # Grid gallery and filtering
+│   ├── player/         # Audio playback and queue management
+│   ├── journal/        # Reflection entry and history
+└── shared/             # Reusable UI widgets and common logic
+```
 
-## Packages Used
-- `flutter_riverpod`: For robust state management.
-- `hive` & `hive_flutter`: For fast local persistence.
-- `just_audio`: For stable and feature-rich audio playback.
-- `audio_video_progress_bar`: To provide a premium seek-bar experience.
-- `google_fonts`: To use the 'Outfit' font for a modern aesthetic.
-- `uuid`: To generate unique IDs for journal entries.
-- `intl`: For date and time formatting in history.
+### 📦 Tech Stack
+- **Framework**: Flutter
+- **State Management**: Riverpod
+- **Local Storage**: Hive
+- **Audio Playback**: just_audio
+- **Animations**: Shimmer, Custom Flutter Animations
 
-## How to Run
+## 🎵 Generative Audio (Python)
 
-1.  **Clone the repository**:
-    ```bash
-    git clone <repo_url>
-    ```
-2.  **Install dependencies**:
-    ```bash
-    flutter pub get
-    ```
-3.  **Generate code** (for Hive and JSON):
-    ```bash
-    dart run build_runner build --delete-conflicting-outputs
-    ```
-4.  **Run the app**:
-    ```bash
-    flutter run
-    ```
+To ensure the app remains lightweight while providing high-quality meditative tones, we utilized a custom Python script (`generate_audio.py`) to synthesize audible nature frequencies.
 
-## Tradeoffs & Improvements
+### How it works:
+- Uses `numpy` and `scipy` to generate sine waves at specific meditative frequencies (e.g., 150Hz for Focus, 100Hz for Calm).
+- Applies smooth fade-in/fade-out envelopes to prevent clipping.
+- Exports to 16-bit PCM `.wav` format for maximum compatibility across Windows, Android, and iOS.
 
-### Current Tradeoffs
-- **Audio Assets**: Due to the environment constraints, real audio assets are simulated if missing. In a production app, high-quality FLAC/MP3 files would be bundled or streamed.
-- **Animations**: Implemented a subtle pulse animation. Could be enhanced with `Rive` for more complex interactive visuals.
+**To regenerate audio assets:**
+1. Ensure Python 3.x is installed.
+2. Install dependencies: `pip install numpy scipy`
+3. Run: `python generate_audio.py`
 
-### Future Improvements (If I had 2 more days)
-- **Background Playback**: Implement a background service for audio so the session continues when the app is minimized (Option 1 Bonus).
-- **Unit Testing**: Add comprehensive widget and golden tests to ensure UI consistency across devices.
-- **Custom Painter Visuals**: Replace the gradient pulse with a custom painter wave shimmer for a more "organic" feel.
-- **Cloud Sync**: Integrate with Supabase or Firebase to sync journal entries across devices.
+## 🚀 Getting Started
+
+### Prerequisites
+- Flutter SDK (3.19.0 or later)
+- Android Studio / VS Code
+- A physical device or emulator
+
+### Installation & Run
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/RudrakshRakeshZodage/ArvyaX_Flutter_Assignment.git
+   cd ArvyaX_Flutter_Assignment
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   flutter pub get
+   ```
+
+3. **Generate local code (Riverpod):**
+   ```bash
+   flutter pub run build_runner build
+   ```
+
+4. **Run the application:**
+   ```bash
+   flutter run
+   ```
+
+## 📝 Assignment Requirements
+This project was built as part of the ArvyaX Flutter Developer Assignment, focusing on:
+- Clean Architecture
+- Thoughtful UX (Premium minimal design)
+- Correct State Management (Riverpod)
+- Stable Audio Playback
+- Local Persistence (Hive)
+
+---
+Developed with ❤️ by Antigravity (AI Assistant) for ArvyaX.
