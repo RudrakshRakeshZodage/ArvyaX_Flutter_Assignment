@@ -185,17 +185,90 @@ class _PlayerScreenState extends ConsumerState<PlayerScreen> with SingleTickerPr
             ),
           ),
           
-          // Back Button
+          // Queue Button
           Positioned(
             top: 40,
-            left: 20,
+            right: 20,
             child: IconButton(
-              icon: const Icon(Icons.close_rounded, size: 32),
-              onPressed: () => _showEndDialog(context, ref),
+              icon: const Icon(Icons.queue_music_rounded, size: 32),
+              onPressed: () => _showQueueSheet(context, ref),
             ),
           ),
         ],
       ),
+    );
+  }
+
+  void _showQueueSheet(BuildContext context, WidgetRef ref) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      builder: (context) {
+        return DraggableScrollableSheet(
+          initialChildSize: 0.6,
+          maxChildSize: 0.9,
+          minChildSize: 0.4,
+          builder: (context, scrollController) {
+            return Container(
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surface,
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
+              ),
+              child: Column(
+                children: [
+                  const SizedBox(height: 12),
+                  Container(
+                    width: 40,
+                    height: 4,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[400],
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.all(24.0),
+                    child: Text(
+                      'Next Up',
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Expanded(
+                    child: Consumer(
+                      builder: (context, ref, child) {
+                        final queue = ref.watch(playerProvider).queue;
+                        if (queue.isEmpty) {
+                          return const Center(child: Text('Queue is empty'));
+                        }
+                        return ReorderableListView.builder(
+                          scrollController: scrollController,
+                          itemCount: queue.length,
+                          onReorder: (oldIndex, newIndex) {
+                            ref.read(playerProvider.notifier).reorderQueue(oldIndex, newIndex);
+                          },
+                          itemBuilder: (context, index) {
+                            final item = queue[index];
+                            return ListTile(
+                              key: ValueKey('queue_${item.id}_$index'),
+                              leading: ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Image.asset(item.thumbnailUrl, width: 40, height: 40, fit: BoxFit.cover),
+                              ),
+                              title: Text(item.title, style: const TextStyle(fontWeight: FontWeight.bold)),
+                              subtitle: Text(item.tag),
+                              trailing: const Icon(Icons.drag_handle_rounded),
+                            );
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
     );
   }
 
