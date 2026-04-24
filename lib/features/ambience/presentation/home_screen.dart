@@ -283,7 +283,7 @@ class _AmbienceCard extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(28),
-          color: Theme.of(context).colorScheme.surfaceVariant,
+          color: Theme.of(context).cardTheme.color,
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.08),
