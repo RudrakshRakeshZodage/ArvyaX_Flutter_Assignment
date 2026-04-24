@@ -63,7 +63,7 @@ class HomeScreen extends ConsumerWidget {
                     children: [
                       _SearchBar(),
                       const SizedBox(height: 16),
-                      const TagFilterChips(),
+                      TagFilterChips(),
                       const SizedBox(height: 20),
                     ],
                   ),
