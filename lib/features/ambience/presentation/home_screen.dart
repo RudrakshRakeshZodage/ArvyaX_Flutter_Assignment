@@ -5,6 +5,7 @@ import 'package:arvyax_flutter_assignment/features/journal/presentation/history_
 import 'package:arvyax_flutter_assignment/shared/widgets/mini_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shimmer/shimmer.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
