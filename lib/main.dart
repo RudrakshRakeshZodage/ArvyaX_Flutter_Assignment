@@ -30,6 +30,19 @@ class ArvyaXApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.system,
+      builder: (context, child) {
+        ErrorWidget.builder = (FlutterErrorDetails details) {
+          return Scaffold(
+            body: Center(
+              child: SelectableText(
+                'UI Error: ${details.exception}\n${details.stack}',
+                style: const TextStyle(color: Colors.red),
+              ),
+            ),
+          );
+        };
+        return child!;
+      },
       home: const HomeScreen(),
     );
   }
